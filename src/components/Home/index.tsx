@@ -30,11 +30,11 @@ const Navbar = () => {
   const imDois = "/images/dois.JPG";
   const imtres = "/images/tres.JPG";
   const imQuatro = "/images/quatro.JPG";
-  const imCinco = "/images/cinco.JPG";
+
 
   return (
     <>
-  
+ 
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
         <Item key="home" icon={<HomeOutlined />}>
           <Link to="/">Pagina Inicial</Link>
@@ -61,9 +61,7 @@ const Navbar = () => {
           <div>
             <CustomImage src={imQuatro} alt="Image 4" />
           </div>
-          <div>
-            <CustomImage src={imCinco} alt="Image 5" />
-          </div>
+        
         </Carousel>
       </ContentContainer>
     </>
