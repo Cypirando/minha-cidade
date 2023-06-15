@@ -34,6 +34,7 @@ const Navbar = () => {
 
   return (
     <>
+  
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
         <Item key="home" icon={<HomeOutlined />}>
           <Link to="/">Pagina Inicial</Link>

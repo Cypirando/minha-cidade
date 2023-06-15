@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, Input, Button } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Table } from "antd";
 import { Wrapper } from "./styles";
 import { Link } from "react-router-dom";
 import ButtonLink from "../ButtonLink";
@@ -12,59 +12,115 @@ interface FormValues {
 }
 
 const Summary = () => {
+  const [formData, setFormData] = useState<FormValues | null>(null);
+
   const onFinish = (values: FormValues) => {
-    console.log("Valores do formulário:", values);
+    setFormData(values);
   };
 
+  const columns = [
+    {
+      title: "Campo",
+      dataIndex: "field",
+      key: "field",
+    },
+    {
+      title: "Valor",
+      dataIndex: "value",
+      key: "value",
+    },
+  ];
+
+  const data = formData
+    ? [
+        {
+          key: "1",
+          field: "Nome",
+          value: formData.nome,
+        },
+        {
+          key: "2",
+          field: "E-mail",
+          value: formData.email,
+        },
+        {
+          key: "3",
+          field: "Assunto",
+          value: formData.assunto,
+        },
+        {
+          key: "4",
+          field: "Mensagem",
+          value: formData.mensagem,
+        },
+      ]
+    : [];
+
   return (
-    <Wrapper>
-      <Form onFinish={onFinish}>
-        <Form.Item
-          label="Nome"
-          name="nome"
-          rules={[{ required: true, message: "Por favor, insira seu nome" }]}
-        >
-          <Input />
-        </Form.Item>
+    <>
+      <Wrapper>
+        <h2>Para saber mais sobre Florianópolis, deixe sua mensagem aqui:</h2>
+        <Form onFinish={onFinish}>
+          <Form.Item
+            label="Nome"
+            name="nome"
+            rules={[{ required: true, message: "Por favor, insira seu nome" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="E-mail"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Por favor, insira seu endereço de e-mail",
-            },
-            { type: "email", message: "Por favor, insira um e-mail válido" },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label="E-mail"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Por favor, insira seu endereço de e-mail",
+              },
+              { type: "email", message: "Por favor, insira um e-mail válido" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="Assunto"
-          name="assunto"
-          rules={[{ required: true, message: "Por favor, insira o assunto" }]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label="Assunto"
+            name="assunto"
+            rules={[{ required: true, message: "Por favor, insira o assunto" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="Mensagem"
-          name="mensagem"
-          rules={[{ required: true, message: "Por favor, insira a mensagem" }]}
-        >
-          <Input.TextArea />
-        </Form.Item>
+          <Form.Item
+            label="Mensagem"
+            name="mensagem"
+            rules={[
+              { required: true, message: "Por favor, insira a mensagem" },
+            ]}
+          >
+            <Input.TextArea />
+          </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Enviar
-          </Button>
-        </Form.Item>
-      </Form>
-      <ButtonLink to="/">Voltar</ButtonLink>
-    </Wrapper>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Enviar
+            </Button>
+          </Form.Item>
+        </Form>
+        {formData && (
+          <>
+            <Table
+              columns={columns}
+              dataSource={data}
+              pagination={false}
+              bordered
+            />
+            <p>Mensagem enviada com sucesso!</p>
+          </>
+        )}
+        <ButtonLink to="/">Voltar</ButtonLink>
+      </Wrapper>
+    </>
   );
 };
 
