@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Table } from "antd";
+import { Form, Input, Button, Table, message } from "antd";
 import { Wrapper } from "./styles";
-import { Link } from "react-router-dom";
 import ButtonLink from "../ButtonLink";
 
 interface FormValues {
@@ -13,9 +12,12 @@ interface FormValues {
 
 const Summary = () => {
   const [formData, setFormData] = useState<FormValues | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const onFinish = (values: FormValues) => {
     setFormData(values);
+    setIsSubmitted(true);
+    message.success("Mensagem enviada com sucesso!");
   };
 
   const columns = [
@@ -107,7 +109,7 @@ const Summary = () => {
             </Button>
           </Form.Item>
         </Form>
-        {formData && (
+        {isSubmitted && (
           <>
             <Table
               columns={columns}
@@ -115,7 +117,6 @@ const Summary = () => {
               pagination={false}
               bordered
             />
-            <p>Mensagem enviada com sucesso!</p>
           </>
         )}
         <ButtonLink to="/">Voltar</ButtonLink>
