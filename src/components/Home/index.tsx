@@ -3,7 +3,7 @@ import { Menu } from "antd";
 
 const { Item } = Menu;
 
-const Headers = () => {
+const Home = () => {
   const [current, setCurrent] = useState("home");
 
   const handleClick = (e: any) => {
@@ -19,4 +19,4 @@ const Headers = () => {
   );
 };
 
-export default Headers;
+export default Home;
